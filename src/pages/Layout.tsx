@@ -1,9 +1,9 @@
-import { Box, Container, Flex, Grid, Link, Text } from '@chakra-ui/react'
+import { Box, Container, Flex, Link, Text } from '@chakra-ui/react'
 import { Outlet } from 'react-router-dom'
 import { NavLink } from 'react-router-dom'
 import { PATH } from '../routes/path'
 
-function Wrapper() {
+function Layout() {
     return (
         <Container
             py='1.5rem'
@@ -12,7 +12,7 @@ function Wrapper() {
             overflowX='hidden'
             minH='100vh'
         >
-            <Box
+            {/* <Box
                 pos='fixed'
                 top='0'
                 left='0'
@@ -40,7 +40,7 @@ function Wrapper() {
                                 as={NavLink}
                                 to={PATH.pokemons}
                             >
-                                All
+                                <Text fontWeight='600'>All</Text>
                             </Link>
                             <Link
                                 as={NavLink}
@@ -54,14 +54,13 @@ function Wrapper() {
             </Box>
 
             <Box
-                pos='relative'
                 mt='header-height'
                 py='.5rem'
             >
-                <Outlet />
-            </Box>
+            </Box> */}
+            <Outlet />
         </Container>
     )
 }
 
-export default Wrapper
+export default Layout

@@ -33,7 +33,11 @@ function AnimateScreen({ initial, animate, exit, children, onAnimationStart, onA
             zIndex='overlay'
         >
             <Container
-                pos='relative'
+                pos='fixed'
+                top='0'
+                left='0'
+                right='0'
+                bottom='0'
                 h='100vh'
                 overflow='hidden'
                 bg='transparent'

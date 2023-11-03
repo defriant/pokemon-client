@@ -1,0 +1,37 @@
+/* Global css here */
+
+::-webkit-scrollbar {
+    width: var(--chakra-sizes-scrollbar-width);
+    height: var(--chakra-sizes-scrollbar-width);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--chakra-colors-scrollbar-thumb);
+}
+
+::-webkit-scrollbar-track {
+    background: var(--chakra-colors-scrollbar-bg);
+}
+
+@media screen and (min-width: 769px) {
+    body {
+        width: var(--chakra-sizes-body-width);
+        overflow-x: hidden !important;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    :root {
+        --chakra-sizes-body-width: 100vw !important;
+    }
+
+    body {
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+}

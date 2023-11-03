@@ -25,7 +25,7 @@ function Routes() {
                             path={`${PATH.pokemons}/*`}
                             element={
                                 <Pokemons>
-                                    <AnimatePresence>
+                                    <AnimatePresence mode='wait'>
                                         <ReactRoutes
                                             location={location}
                                             key={locationArr[2]}

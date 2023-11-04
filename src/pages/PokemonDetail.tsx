@@ -63,7 +63,10 @@ function PokemonDetail() {
             <AnimateScreenBody>
                 <Stack
                     spacing='3rem'
-                    pb='calc(80px + 1.5rem)'
+                    pb={{
+                        base: 'calc(calc(80px * 2) + 1.5rem)',
+                        lg: 'calc(80px + 1.5rem)',
+                    }}
                 >
                     <Flex justify='space-between'>
                         <Text

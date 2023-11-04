@@ -69,6 +69,12 @@ function Header({ children, variants, initial, animate, exit }: HeaderProps) {
                                             />
                                         }
                                         fontSize='sm'
+                                        // _focus={{
+                                        //     bg: 'transparent',
+                                        // }}
+                                        // _active={{
+                                        //     bg: 'transparent',
+                                        // }}
                                     >
                                         My Pokemon
                                     </MenuItem>
@@ -80,6 +86,12 @@ function Header({ children, variants, initial, animate, exit }: HeaderProps) {
                                             />
                                         }
                                         fontSize='sm'
+                                        // _focus={{
+                                        //     bg: 'transparent',
+                                        // }}
+                                        // _active={{
+                                        //     bg: 'transparent',
+                                        // }}
                                     >
                                         Logout
                                     </MenuItem>

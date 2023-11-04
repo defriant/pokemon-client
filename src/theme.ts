@@ -67,5 +67,20 @@ export default extendTheme({
                 },
             },
         },
+        Menu: {
+            baseStyle: {
+                item: {
+                    _focus: {
+                        bg: 'transparent',
+                    },
+                    _active: {
+                        bg: 'transparent',
+                    },
+                    _hover: {
+                        bg: 'blackAlpha.50',
+                    },
+                },
+            },
+        },
     },
 })

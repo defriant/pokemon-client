@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect } from 'react'
+import { Suspense, lazy } from 'react'
 import { Route, Routes as ReactRoutes, useLocation, Navigate } from 'react-router-dom'
 import { PATH } from './path'
 import { AnimatePresence } from 'framer-motion'

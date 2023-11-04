@@ -1,10 +1,17 @@
 import AnimateScreen from '../components/AnimateScreen'
-import AnimateScreenHeader from '../components/AnimateScreenHeader'
 import AnimateScreenBody from '../components/AnimateScreenBody'
-import { Icon, Link, Text } from '@chakra-ui/react'
+import { Avatar, Box, Button, Container, Flex, HStack, Icon, Image, Link, Stack, Tag, Text } from '@chakra-ui/react'
 import { Link as ReactLink } from 'react-router-dom'
 import { PATH } from '../routes/path'
-import { FaArrowLeft } from 'react-icons/fa'
+import { FaArrowLeft, FaLevelUpAlt } from 'react-icons/fa'
+import { LuSword, LuSwords } from 'react-icons/lu'
+import { BsShield, BsShieldPlus, BsSuitHeart } from 'react-icons/bs'
+import { PiSneakerMove } from 'react-icons/pi'
+import { CiLineHeight } from 'react-icons/ci'
+import { LiaWeightHangingSolid } from 'react-icons/lia'
+import PokemonBall from '../components/PokemonBall'
+import { MdOutlineCatchingPokemon } from 'react-icons/md'
+import { motion } from 'framer-motion'
 
 function PokemonDetail() {
     return (
@@ -13,10 +20,23 @@ function PokemonDetail() {
             animate={{ top: '0' }}
             exit={{ top: '100vh' }}
         >
-            <AnimateScreenHeader>
+            <Flex
+                pos='relative'
+                justify='center'
+                w='100%'
+                pt='4.5rem'
+                mb='3rem'
+                h={{
+                    base: '300px',
+                    md: '400px',
+                }}
+            >
                 <Link
                     as={ReactLink}
                     to={PATH.pokemons}
+                    pos='absolute'
+                    top='1.5rem'
+                    left='0'
                     opacity='.5'
                     _hover={{
                         opacity: '1',
@@ -27,9 +47,300 @@ function PokemonDetail() {
                         fontSize='22px'
                     />
                 </Link>
-            </AnimateScreenHeader>
+                <Box
+                    pos='absolute'
+                    top='1.5rem'
+                    right='0'
+                >
+                    <PokemonBall />
+                </Box>
+                <Image
+                    pos='relative'
+                    src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg'
+                />
+            </Flex>
+
             <AnimateScreenBody>
-                <Text>Pokemon detail</Text>
+                <Stack
+                    spacing='3rem'
+                    pb='calc(80px + 1.5rem)'
+                >
+                    <Flex justify='space-between'>
+                        <Text
+                            fontSize='lg'
+                            fontWeight='semibold'
+                        >
+                            Bulbasaur
+                        </Text>
+                        <HStack>
+                            <Tag
+                                variant='solid'
+                                size='sm'
+                            >
+                                Grass
+                            </Tag>
+                            <Tag
+                                variant='solid'
+                                size='sm'
+                            >
+                                Poison
+                            </Tag>
+                        </HStack>
+                    </Flex>
+
+                    <HStack spacing='3rem'>
+                        <Stack>
+                            <Text
+                                fontWeight='semibold'
+                                fontSize='sm'
+                            >
+                                Weight
+                            </Text>
+                            <Flex
+                                align='center'
+                                gap='.5rem'
+                            >
+                                <Icon
+                                    as={LiaWeightHangingSolid}
+                                    fontSize='20px'
+                                />
+                                <Text>30</Text>
+                            </Flex>
+                        </Stack>
+                        <Stack>
+                            <Text
+                                fontWeight='semibold'
+                                fontSize='sm'
+                            >
+                                Height
+                            </Text>
+                            <Flex
+                                align='center'
+                                gap='.5rem'
+                            >
+                                <Icon
+                                    as={CiLineHeight}
+                                    fontSize='20px'
+                                />
+                                <Text>30</Text>
+                            </Flex>
+                        </Stack>
+                    </HStack>
+
+                    <Stack>
+                        <Text
+                            fontWeight='semibold'
+                            fontSize='sm'
+                        >
+                            Stats
+                        </Text>
+                        <HStack
+                            // spacing='3rem'
+                            gridGap='2rem'
+                            rowGap='1rem'
+                            flexWrap='wrap'
+                        >
+                            <Flex
+                                align='center'
+                                gap='.5rem'
+                            >
+                                <Icon
+                                    as={LuSword}
+                                    fontSize='20px'
+                                    color='orange.500'
+                                />
+                                <Text>30</Text>
+                            </Flex>
+                            <Flex
+                                align='center'
+                                gap='.5rem'
+                            >
+                                <Icon
+                                    as={LuSwords}
+                                    fontSize='20px'
+                                    color='orange.500'
+                                />
+                                <Text>40</Text>
+                            </Flex>
+                            <Flex
+                                align='center'
+                                gap='.5rem'
+                            >
+                                <Icon
+                                    as={BsShield}
+                                    fontSize='19px'
+                                    color='blue.500'
+                                />
+                                <Text>40</Text>
+                            </Flex>
+                            <Flex
+                                align='center'
+                                gap='.5rem'
+                            >
+                                <Icon
+                                    as={BsShieldPlus}
+                                    fontSize='19px'
+                                    color='blue.500'
+                                />
+                                <Text>40</Text>
+                            </Flex>
+                            <Flex
+                                align='center'
+                                gap='.5rem'
+                            >
+                                <Icon
+                                    as={BsSuitHeart}
+                                    fontSize='19px'
+                                    color='red.500'
+                                />
+                                <Text>40</Text>
+                            </Flex>
+                            <Flex
+                                align='center'
+                                gap='.5rem'
+                            >
+                                <Icon
+                                    as={PiSneakerMove}
+                                    fontSize='21px'
+                                    color='green.500'
+                                />
+                                <Text>40</Text>
+                            </Flex>
+                        </HStack>
+                    </Stack>
+
+                    <Stack>
+                        <Text
+                            fontWeight='semibold'
+                            fontSize='sm'
+                        >
+                            Abilities
+                        </Text>
+                        <HStack>
+                            <Flex
+                                gap='.5rem'
+                                align='center'
+                                py='.25rem'
+                                px='.75rem'
+                                borderRadius='full'
+                                borderWidth='1px'
+                                w='max-content'
+                            >
+                                <Avatar
+                                    name='overgrow'
+                                    color='transparent'
+                                    w='15px'
+                                    h='15px'
+                                />
+                                <Text fontSize='sm'>Overgrow</Text>
+                            </Flex>
+                            <Flex
+                                gap='.5rem'
+                                align='center'
+                                py='.25rem'
+                                px='.75rem'
+                                borderRadius='full'
+                                borderWidth='1px'
+                                w='max-content'
+                            >
+                                <Avatar
+                                    name='chlorophyll'
+                                    color='transparent'
+                                    w='15px'
+                                    h='15px'
+                                />
+                                <Text fontSize='sm'>Chlorophyll</Text>
+                            </Flex>
+                        </HStack>
+                    </Stack>
+
+                    <Stack>
+                        <Text
+                            fontWeight='semibold'
+                            fontSize='sm'
+                        >
+                            Experience
+                        </Text>
+                        <Flex
+                            align='center'
+                            gap='.5rem'
+                        >
+                            <Icon
+                                as={FaLevelUpAlt}
+                                fontSize='20px'
+                                color='green.500'
+                            />
+                            <Text>+30</Text>
+                        </Flex>
+                    </Stack>
+                </Stack>
+
+                <Container
+                    as={motion.div}
+                    initial={{
+                        height: '0px',
+                        opacity: 0,
+                    }}
+                    animate={{
+                        height: '100px',
+                        opacity: 1,
+                        transition: {
+                            delay: 0.3,
+                        },
+                    }}
+                    exit={{
+                        height: '0px',
+                        opacity: 0,
+                    }}
+                    h='100px'
+                    pos='fixed'
+                    bottom='0'
+                    left='0'
+                    right='0'
+                    overflowX='clip'
+                    overflowY='visible'
+                >
+                    <Stack
+                        boxShadow='container'
+                        pos='absolute'
+                        top='0'
+                        left='0'
+                        right='0'
+                        bottom='0'
+                        justify='center'
+                        h='100%'
+                        px='1rem'
+                    >
+                        <Text
+                            align='center'
+                            fontSize={{
+                                base: 'xs',
+                                md: 'sm',
+                            }}
+                            fontWeight='medium'
+                        >
+                            Capture rate : 75%
+                        </Text>
+                        <Button
+                            colorScheme='blue'
+                            fontWeight='medium'
+                            rounded='full'
+                            w='100%'
+                            size={{
+                                base: 'sm',
+                                md: 'md',
+                            }}
+                            leftIcon={
+                                <Icon
+                                    as={MdOutlineCatchingPokemon}
+                                    fontSize='20px'
+                                />
+                            }
+                        >
+                            Catch Bulbasaur
+                        </Button>
+                    </Stack>
+                </Container>
             </AnimateScreenBody>
         </AnimateScreen>
     )

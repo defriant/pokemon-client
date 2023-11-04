@@ -32,7 +32,7 @@ export default extendTheme({
     sizes: {
         'body-width': 'calc(100vw - var(--chakra-sizes-scrollbar-width))',
         'header-height': '80px',
-        'scrollbar-width': '.5rem',
+        'scrollbar-width': '.3rem',
     },
     semanticTokens: {
         colors: {
@@ -46,7 +46,7 @@ export default extendTheme({
                 _light: '#5F5F5F',
             },
             'scrollbar-bg': {
-                _light: '#F2F2F2',
+                _light: '#FFFFFF',
             },
             'scrollbar-thumb': {
                 _light: '#AFAFAF',

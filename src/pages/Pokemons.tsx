@@ -91,8 +91,14 @@ function Pokemons({ children }: PokemonsProps) {
                 {isLoading && <PageLoader />}
                 {!isLoading && (
                     <Grid
-                        templateColumns='repeat(4, 1fr)'
-                        gap='1.5rem'
+                        templateColumns={{
+                            base: 'repeat(2, 1fr)',
+                            sm: 'repeat(4, 1fr)',
+                        }}
+                        gap={{
+                            base: '1rem',
+                            md: '1.5rem',
+                        }}
                     >
                         {pokemons?.pages.map((pokemonPage: any, pageKey: number) => (
                             <Fragment key={pageKey}>

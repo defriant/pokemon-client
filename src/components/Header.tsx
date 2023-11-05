@@ -1,10 +1,12 @@
-import { Avatar, Box, Container, Flex, Icon, Menu, MenuButton, MenuGroup, MenuItem, MenuList } from '@chakra-ui/react'
+import { Avatar, Box, Button, Container, Flex, Icon, Menu, MenuButton, MenuGroup, MenuItem, MenuList } from '@chakra-ui/react'
 import { Variants, motion } from 'framer-motion'
 import { Link as ReactLink } from 'react-router-dom'
 import { PATH } from '../routes/path'
-import { MdLogout, MdOutlineCatchingPokemon } from 'react-icons/md'
+import { MdLogin, MdLogout, MdOutlineCatchingPokemon } from 'react-icons/md'
 import { ReactNode } from 'react'
 import PokemonBall from './PokemonBall'
+import useAuth from '../hooks/useAuth'
+import { cookies } from '../api/config'
 
 type HeaderProps = {
     children?: ReactNode
@@ -15,6 +17,13 @@ type HeaderProps = {
 }
 
 function Header({ children, variants, initial, animate, exit }: HeaderProps) {
+    const { user, setUser } = useAuth()
+
+    const handleLogout = () => {
+        cookies.remove('authorization')
+        setUser(undefined)
+    }
+
     return (
         <Box
             pos='fixed'
@@ -41,64 +50,72 @@ function Header({ children, variants, initial, animate, exit }: HeaderProps) {
                 >
                     <Box>{children}</Box>
 
-                    <Flex
-                        align='center'
-                        gap='1rem'
-                    >
-                        <PokemonBall />
+                    {user && (
+                        <Flex
+                            align='center'
+                            gap='1rem'
+                        >
+                            <PokemonBall />
 
-                        <Menu>
-                            <MenuButton aria-label='Menu'>
-                                <Avatar
-                                    name='Afif Defriant'
-                                    size='sm'
+                            <Menu>
+                                <MenuButton aria-label='Menu'>
+                                    <Avatar
+                                        name={user.name}
+                                        size='sm'
+                                    />
+                                </MenuButton>
+                                <MenuList boxShadow='lg'>
+                                    <MenuGroup
+                                        title='Afif Defriant'
+                                        fontSize='sm'
+                                    >
+                                        <MenuItem
+                                            as={ReactLink}
+                                            to={PATH.myPokemons}
+                                            icon={
+                                                <Icon
+                                                    as={MdOutlineCatchingPokemon}
+                                                    fontSize='16px'
+                                                />
+                                            }
+                                            fontSize='sm'
+                                        >
+                                            My Pokemon
+                                        </MenuItem>
+                                        <MenuItem
+                                            icon={
+                                                <Icon
+                                                    as={MdLogout}
+                                                    fontSize='16px'
+                                                    transform='rotate(180deg)'
+                                                />
+                                            }
+                                            fontSize='sm'
+                                            onClick={handleLogout}
+                                        >
+                                            Logout
+                                        </MenuItem>
+                                    </MenuGroup>
+                                </MenuList>
+                            </Menu>
+                        </Flex>
+                    )}
+
+                    {!user && (
+                        <Button
+                            variant='outline'
+                            size='sm'
+                            colorScheme='yellow'
+                            leftIcon={
+                                <Icon
+                                    as={MdLogin}
+                                    fontSize='16px'
                                 />
-                            </MenuButton>
-                            <MenuList boxShadow='lg'>
-                                <MenuGroup
-                                    title='Afif Defriant'
-                                    fontSize='sm'
-                                >
-                                    <MenuItem
-                                        as={ReactLink}
-                                        to={PATH.myPokemons}
-                                        icon={
-                                            <Icon
-                                                as={MdOutlineCatchingPokemon}
-                                                fontSize='16px'
-                                            />
-                                        }
-                                        fontSize='sm'
-                                        // _focus={{
-                                        //     bg: 'transparent',
-                                        // }}
-                                        // _active={{
-                                        //     bg: 'transparent',
-                                        // }}
-                                    >
-                                        My Pokemon
-                                    </MenuItem>
-                                    <MenuItem
-                                        icon={
-                                            <Icon
-                                                as={MdLogout}
-                                                fontSize='16px'
-                                            />
-                                        }
-                                        fontSize='sm'
-                                        // _focus={{
-                                        //     bg: 'transparent',
-                                        // }}
-                                        // _active={{
-                                        //     bg: 'transparent',
-                                        // }}
-                                    >
-                                        Logout
-                                    </MenuItem>
-                                </MenuGroup>
-                            </MenuList>
-                        </Menu>
-                    </Flex>
+                            }
+                        >
+                            Sign in
+                        </Button>
+                    )}
                 </Flex>
             </Container>
         </Box>

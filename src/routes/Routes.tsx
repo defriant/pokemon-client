@@ -3,8 +3,9 @@ import { Route, Routes as ReactRoutes, useLocation, Navigate } from 'react-route
 import { PATH } from './path'
 import { AnimatePresence } from 'framer-motion'
 import PageLoader from '../components/PageLoader'
-import Layout from '../pages/Layout'
 
+const Layout = lazy(() => import('../components/Layout'))
+const PrivateRoute = lazy(() => import('./PrivateRoute'))
 const Pokemons = lazy(() => import('../pages/Pokemons'))
 const PokemonDetail = lazy(() => import('../pages/PokemonDetail'))
 const MyPokemons = lazy(() => import('../pages/MyPokemons'))
@@ -40,10 +41,12 @@ function Routes() {
                             }
                         />
 
-                        <Route
-                            path={PATH.myPokemons}
-                            element={<MyPokemons />}
-                        />
+                        <Route element={<PrivateRoute />}>
+                            <Route
+                                path={PATH.myPokemons}
+                                element={<MyPokemons />}
+                            />
+                        </Route>
 
                         <Route
                             path='/'

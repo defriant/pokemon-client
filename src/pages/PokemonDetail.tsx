@@ -56,7 +56,7 @@ function PokemonDetail() {
                 </Box>
                 <Image
                     pos='relative'
-                    src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg'
+                    src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/6.svg'
                 />
             </Flex>
 
@@ -73,20 +73,20 @@ function PokemonDetail() {
                             fontSize='lg'
                             fontWeight='semibold'
                         >
-                            Bulbasaur
+                            Charrizard
                         </Text>
                         <HStack>
                             <Tag
                                 variant='solid'
                                 size='sm'
                             >
-                                Grass
+                                Fire
                             </Tag>
                             <Tag
                                 variant='solid'
                                 size='sm'
                             >
-                                Poison
+                                Flying
                             </Tag>
                         </HStack>
                     </Flex>
@@ -107,7 +107,7 @@ function PokemonDetail() {
                                     as={LiaWeightHangingSolid}
                                     fontSize='20px'
                                 />
-                                <Text>30</Text>
+                                <Text>905</Text>
                             </Flex>
                         </Stack>
                         <Stack>
@@ -125,7 +125,7 @@ function PokemonDetail() {
                                     as={CiLineHeight}
                                     fontSize='20px'
                                 />
-                                <Text>30</Text>
+                                <Text>15</Text>
                             </Flex>
                         </Stack>
                     </HStack>
@@ -138,7 +138,6 @@ function PokemonDetail() {
                             Stats
                         </Text>
                         <HStack
-                            // spacing='3rem'
                             gridGap='2rem'
                             rowGap='1rem'
                             flexWrap='wrap'
@@ -152,7 +151,7 @@ function PokemonDetail() {
                                     fontSize='20px'
                                     color='orange.500'
                                 />
-                                <Text>30</Text>
+                                <Text>84</Text>
                             </Flex>
                             <Flex
                                 align='center'
@@ -163,7 +162,7 @@ function PokemonDetail() {
                                     fontSize='20px'
                                     color='orange.500'
                                 />
-                                <Text>40</Text>
+                                <Text>109</Text>
                             </Flex>
                             <Flex
                                 align='center'
@@ -174,7 +173,7 @@ function PokemonDetail() {
                                     fontSize='19px'
                                     color='blue.500'
                                 />
-                                <Text>40</Text>
+                                <Text>78</Text>
                             </Flex>
                             <Flex
                                 align='center'
@@ -185,7 +184,7 @@ function PokemonDetail() {
                                     fontSize='19px'
                                     color='blue.500'
                                 />
-                                <Text>40</Text>
+                                <Text>85</Text>
                             </Flex>
                             <Flex
                                 align='center'
@@ -196,7 +195,7 @@ function PokemonDetail() {
                                     fontSize='19px'
                                     color='red.500'
                                 />
-                                <Text>40</Text>
+                                <Text>78</Text>
                             </Flex>
                             <Flex
                                 align='center'
@@ -207,7 +206,7 @@ function PokemonDetail() {
                                     fontSize='21px'
                                     color='green.500'
                                 />
-                                <Text>40</Text>
+                                <Text>100</Text>
                             </Flex>
                         </HStack>
                     </Stack>
@@ -230,12 +229,12 @@ function PokemonDetail() {
                                 w='max-content'
                             >
                                 <Avatar
-                                    name='overgrow'
+                                    name='blaze'
                                     color='transparent'
                                     w='15px'
                                     h='15px'
                                 />
-                                <Text fontSize='sm'>Overgrow</Text>
+                                <Text fontSize='sm'>Blaze</Text>
                             </Flex>
                             <Flex
                                 gap='.5rem'
@@ -247,12 +246,12 @@ function PokemonDetail() {
                                 w='max-content'
                             >
                                 <Avatar
-                                    name='chlorophyll'
+                                    name='solar-power'
                                     color='transparent'
                                     w='15px'
                                     h='15px'
                                 />
-                                <Text fontSize='sm'>Chlorophyll</Text>
+                                <Text fontSize='sm'>Solar power</Text>
                             </Flex>
                         </HStack>
                     </Stack>
@@ -273,7 +272,7 @@ function PokemonDetail() {
                                 fontSize='20px'
                                 color='green.500'
                             />
-                            <Text>+30</Text>
+                            <Text>+267</Text>
                         </Flex>
                     </Stack>
                 </Stack>
@@ -322,7 +321,7 @@ function PokemonDetail() {
                             }}
                             fontWeight='medium'
                         >
-                            Capture rate : 75%
+                            Capture rate : 20%
                         </Text>
                         <Button
                             colorScheme='blue'
@@ -340,7 +339,7 @@ function PokemonDetail() {
                                 />
                             }
                         >
-                            Catch Bulbasaur
+                            Catch Charrizard
                         </Button>
                     </Stack>
                 </Container>

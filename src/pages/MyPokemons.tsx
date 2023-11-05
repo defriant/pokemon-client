@@ -2,7 +2,7 @@ import { Box, Flex, Icon, Link, Text } from '@chakra-ui/react'
 import { Variants, motion } from 'framer-motion'
 import { Link as ReactLink } from 'react-router-dom'
 import { PATH } from '../routes/path'
-import { ReactNode } from 'react'
+import { ReactNode, useEffect } from 'react'
 import { FaArrowLeft } from 'react-icons/fa'
 import Header from '../components/Header'
 
@@ -11,6 +11,10 @@ type PokemonsProps = {
 }
 
 function MyPokemons({ children }: PokemonsProps) {
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
     const MyPokemonsMotion: Variants = {
         initial: {
             transform: 'translateX(100vw)',
@@ -67,6 +71,7 @@ function MyPokemons({ children }: PokemonsProps) {
                 mt='header-height'
             >
                 <Text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, a.</Text>
+                <Box h='2000px'></Box>
             </Box>
 
             {children}

@@ -1,26 +1,37 @@
 import { Box, Flex, Image, Link, Stack, Text } from '@chakra-ui/react'
 import { Link as ReactLink } from 'react-router-dom'
 import { PATH } from '../routes/path'
+import { TPokemonList } from '../pages/Pokemons'
 
-function CardPokemon() {
+type CardPokemonProps = {
+    pokemon: TPokemonList
+}
+
+function CardPokemon({ pokemon }: CardPokemonProps) {
     return (
         <Link
             as={ReactLink}
             to={PATH.pokemonDetail}
+            _hover={{
+                textDecor: 'none',
+            }}
         >
             <Box
                 boxShadow='card'
                 overflow='hidden'
                 borderRadius='10px'
+                _hover={{
+                    bg: '#F9F9F9',
+                }}
+                transitionDuration='normal'
             >
                 <Flex
                     w='100%'
                     justify='center'
                     py='1rem'
-                    bg='#FBFBFB'
                 >
                     <Image
-                        src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg'
+                        src={pokemon.image}
                         w='100px'
                         h='100px'
                     />
@@ -32,8 +43,11 @@ function CardPokemon() {
                     <Text
                         fontSize='sm'
                         fontWeight='semibold'
+                        _firstLetter={{
+                            textTransform: 'capitalize',
+                        }}
                     >
-                        Bulbasaur
+                        {pokemon.name}
                     </Text>
                 </Stack>
             </Box>

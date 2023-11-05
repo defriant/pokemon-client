@@ -41,9 +41,14 @@ function Pokemons({ children }: PokemonsProps) {
     })
 
     useEffect(() => {
+        let fetch = isFetchingNextPage
+
         const onScroll = () => {
             if (window.innerHeight + Math.round(window.scrollY) >= document.body.offsetHeight - 100) {
-                if (!isFetchingNextPage) fetchNextPage()
+                if (!fetch && !isFetchingNextPage) {
+                    fetch = true
+                    fetchNextPage()
+                }
             }
         }
 

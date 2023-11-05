@@ -15,6 +15,7 @@ function CardPokemon({ pokemon }: CardPokemonProps) {
             _hover={{
                 textDecor: 'none',
             }}
+            h='100%'
         >
             <Box
                 boxShadow='card'
@@ -24,6 +25,7 @@ function CardPokemon({ pokemon }: CardPokemonProps) {
                     bg: '#F9F9F9',
                 }}
                 transitionDuration='normal'
+                h='100%'
             >
                 <Flex
                     w='100%'
@@ -47,7 +49,7 @@ function CardPokemon({ pokemon }: CardPokemonProps) {
                             textTransform: 'capitalize',
                         }}
                     >
-                        {pokemon.name}
+                        {pokemon.name.replaceAll('-', ' ')}
                     </Text>
                 </Stack>
             </Box>

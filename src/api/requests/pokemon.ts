@@ -9,7 +9,7 @@ export const getPokemonList = async (offset: number) => {
             },
         })
         return res.data
-    } catch (error) {
-        throw error
+    } catch (err: any) {
+        throw err.response
     }
 }

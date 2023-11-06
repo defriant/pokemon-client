@@ -7,9 +7,10 @@ type ModalProps = {
     isOpen?: boolean
     onClose?: () => void
     height?: 'full' | 'auto'
+    closeOnOverlayClick?: boolean
 }
 
-function Modal({ id, children, isOpen, onClose, height = 'auto' }: ModalProps) {
+function Modal({ id, children, isOpen, onClose, height = 'auto', closeOnOverlayClick = true }: ModalProps) {
     return (
         <>
             {height !== 'full' && (
@@ -24,7 +25,7 @@ function Modal({ id, children, isOpen, onClose, height = 'auto' }: ModalProps) {
                     bottom='0'
                     w='body-width'
                     backdropFilter='blur(3px)'
-                    onClick={(e: any) => !e.target.closest(`.${id}`) && onClose!()}
+                    onClick={(e: any) => !e.target.closest(`.${id}`) && closeOnOverlayClick && onClose!()}
                     zIndex='modal'
                 >
                     <Container

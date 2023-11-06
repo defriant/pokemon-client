@@ -13,6 +13,7 @@ function UserAuth({ isOpen, onClose }: UseDisclosureProps) {
         if (isOpen) {
             document.body.style.overflow = 'hidden'
         } else {
+            setPage('login')
             document.body.style.overflow = 'auto'
         }
 
@@ -26,6 +27,7 @@ function UserAuth({ isOpen, onClose }: UseDisclosureProps) {
             id='_user-auth_'
             isOpen={isOpen}
             onClose={onClose}
+            closeOnOverlayClick={false}
         >
             <Box
                 p='1.5rem'
@@ -45,10 +47,21 @@ function UserAuth({ isOpen, onClose }: UseDisclosureProps) {
                         opacity: 1,
                     }}
                     transitionDuration='normal'
+                    onClick={onClose}
                 />
 
-                {page === 'login' && <Login setPage={setPage} />}
-                {page === 'register' && <Register setPage={setPage} />}
+                {page === 'login' && (
+                    <Login
+                        setPage={setPage}
+                        onClose={onClose}
+                    />
+                )}
+                {page === 'register' && (
+                    <Register
+                        setPage={setPage}
+                        onClose={onClose}
+                    />
+                )}
             </Box>
         </Modal>
     )

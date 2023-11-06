@@ -1,11 +1,11 @@
-import { Box, Button, Icon, Input, InputGroup, InputLeftElement, Stack, Text, useToast } from '@chakra-ui/react'
+import { Box, Button, Icon, Input, InputGroup, InputLeftElement, Stack, Text, UseDisclosureProps, useToast } from '@chakra-ui/react'
 import { AiOutlineLock, AiOutlineMail } from 'react-icons/ai'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { useMutation } from 'react-query'
 import { login } from '../api/requests/auth'
-import useAuth from '../hooks/useAuth'
+import useAuth, { TUser } from '../hooks/useAuth'
 
-function Login({ setPage }: { setPage: Dispatch<SetStateAction<'login' | 'register'>> }) {
+function Login({ setPage, onClose }: { setPage: Dispatch<SetStateAction<'login' | 'register'>> } & UseDisclosureProps) {
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [isValid, setIsValid] = useState<boolean>(false)
@@ -22,7 +22,8 @@ function Login({ setPage }: { setPage: Dispatch<SetStateAction<'login' | 'regist
     }, [email, password])
 
     const sendLogin = useMutation('auth-login', login, {
-        onSuccess: res => {
+        onSuccess: (res: TUser) => {
+            onClose!()
             setUser(res)
         },
         onError: (err: any) => {

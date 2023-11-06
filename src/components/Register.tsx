@@ -1,12 +1,67 @@
-import { Box, Button, Icon, Input, InputGroup, InputLeftElement, Stack, Text } from '@chakra-ui/react'
+import { Box, Button, Icon, Input, InputGroup, InputLeftElement, Stack, Text, UseDisclosureProps, useToast } from '@chakra-ui/react'
 import { AiOutlineLock, AiOutlineMail, AiOutlineUser } from 'react-icons/ai'
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { useMutation } from 'react-query'
+import { register } from '../api/requests/auth'
+import useAuth, { TUser } from '../hooks/useAuth'
 
-function Register({ setPage }: { setPage: Dispatch<SetStateAction<'login' | 'register'>> }) {
+function Register({ setPage, onClose }: { setPage: Dispatch<SetStateAction<'login' | 'register'>> } & UseDisclosureProps) {
     const [name, setName] = useState<string>('')
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [confirmPassword, setConfirmPassword] = useState<string>('')
+    const [isValid, setIsValid] = useState<boolean>(false)
+    const { setUser } = useAuth()
+    const toast = useToast()
+
+    const matchPassword: () => boolean = () => {
+        if (password !== confirmPassword) return false
+        return true
+    }
+
+    useEffect(() => {
+        let valid = true
+
+        if (name === '') valid = false
+        if (email === '') valid = false
+        if (password === '') valid = false
+        if (confirmPassword === '') valid = false
+        if (matchPassword() === false) valid = false
+
+        setIsValid(valid)
+    }, [name, email, password, confirmPassword])
+
+    const sendRegister = useMutation('auth-register', register, {
+        onSuccess: ({ user, message }: { user: TUser; message: string }) => {
+            onClose!()
+            setUser(user)
+            toast.closeAll()
+            toast({
+                status: 'success',
+                description: message,
+                isClosable: true,
+                duration: 3000,
+                position: 'top',
+            })
+        },
+        onError: (err: any) => {
+            toast.closeAll()
+            toast({
+                status: 'warning',
+                description: err.data.message,
+                isClosable: true,
+                duration: 3000,
+                position: 'top',
+            })
+        },
+    })
+
+    const handleSubmit = (e: any) => {
+        e.preventDefault()
+        if (isValid) {
+            sendRegister.mutate({ name, email, password })
+        }
+    }
 
     return (
         <>
@@ -18,7 +73,11 @@ function Register({ setPage }: { setPage: Dispatch<SetStateAction<'login' | 'reg
             >
                 Register
             </Text>
-            <Stack spacing='2rem'>
+            <Stack
+                as='form'
+                onSubmit={handleSubmit}
+                spacing='2rem'
+            >
                 <Stack spacing='1rem'>
                     <InputGroup>
                         <InputLeftElement pointerEvents='none'>
@@ -65,11 +124,20 @@ function Register({ setPage }: { setPage: Dispatch<SetStateAction<'login' | 'reg
                             placeholder='Confirm password'
                             fontSize='sm'
                             value={confirmPassword}
+                            isInvalid={confirmPassword !== '' && !matchPassword()}
                             onChange={e => setConfirmPassword(e.target.value)}
+                            onBlur={matchPassword}
                         />
                     </InputGroup>
                 </Stack>
-                <Button colorScheme='blue'>Register</Button>
+                <Button
+                    type='submit'
+                    colorScheme='blue'
+                    isDisabled={!isValid}
+                    isLoading={sendRegister.isLoading}
+                >
+                    Register
+                </Button>
                 <Text
                     fontSize='sm'
                     align='center'

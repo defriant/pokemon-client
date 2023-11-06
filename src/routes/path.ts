@@ -1,5 +1,5 @@
 export const PATH = {
     pokemons: '/pokemons',
-    pokemonDetail: '/pokemons/detail',
+    pokemonDetail: '/pokemons/:pokemon_id',
     myPokemons: '/my-pokemon',
 }

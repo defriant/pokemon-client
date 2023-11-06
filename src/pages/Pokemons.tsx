@@ -11,6 +11,7 @@ import PageLoader from '../components/PageLoader'
 import { FaChevronDown } from 'react-icons/fa'
 
 export type TPokemonList = {
+    id: string
     name: string
     image: string
     url: string

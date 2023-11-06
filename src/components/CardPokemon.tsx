@@ -11,7 +11,7 @@ function CardPokemon({ pokemon }: CardPokemonProps) {
     return (
         <Link
             as={ReactLink}
-            to={PATH.pokemonDetail}
+            to={PATH.pokemonDetail.replace(':pokemon_id', pokemon.name)}
             _hover={{
                 textDecor: 'none',
             }}

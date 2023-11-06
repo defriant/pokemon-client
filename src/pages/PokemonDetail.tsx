@@ -34,6 +34,9 @@ import { UseQueryResult, useQuery } from 'react-query'
 import { getPokemonDetail } from '../api/requests/pokemon'
 import PageLoader from '../components/PageLoader'
 import useAuth from '../hooks/useAuth'
+import usePokeball from '../hooks/usePokeball'
+import { useState } from 'react'
+import CaptureScreen from '../components/CaptureScreen'
 
 function PokemonDetail() {
     const { user } = useAuth()
@@ -46,6 +49,20 @@ function PokemonDetail() {
             staleTime: Infinity,
         },
     )
+    const { current, refetch: fetchPokeball } = usePokeball()
+    const [isOpenCaptureScreen, setIsOpenCaptureScreen] = useState<boolean>(false)
+    const [isCapturing, setIsCapturing] = useState<boolean>(false)
+    const [isCaptureSuccess, setIsCaptureSuccess] = useState<boolean>(false)
+    const [isCaptureFailed, setIsCaptureFailed] = useState<boolean>(false)
+
+    const handleCapture = () => {
+        setIsCapturing(true)
+        setIsOpenCaptureScreen(true)
+        setTimeout(() => {
+            setIsCapturing(false)
+            setIsCaptureSuccess(true)
+        }, 5000)
+    }
 
     return (
         <AnimateScreen
@@ -104,7 +121,10 @@ function PokemonDetail() {
                         left='0'
                         bottom='0'
                     >
-                        <Box overflow='auto'>
+                        <Box
+                            overflowY='auto'
+                            overflowX='hidden'
+                        >
                             <Flex
                                 pos='relative'
                                 justify='center'
@@ -447,6 +467,8 @@ function PokemonDetail() {
                                             fontSize='20px'
                                         />
                                     }
+                                    isDisabled={current === 0}
+                                    onClick={handleCapture}
                                 >
                                     <Flex gap='.4rem'>
                                         <Text>Catch</Text>
@@ -456,6 +478,18 @@ function PokemonDetail() {
                             </Stack>
                         </Container>
                     )}
+
+                    <CaptureScreen
+                        pokemon={data}
+                        isOpen={isOpenCaptureScreen}
+                        setIsOpen={setIsOpenCaptureScreen}
+                        isCapturing={isCapturing}
+                        setIsCapturing={setIsCapturing}
+                        isSuccess={isCaptureSuccess}
+                        setIsSuccess={setIsCaptureSuccess}
+                        isFailed={isCaptureFailed}
+                        setIsFailed={setIsCaptureFailed}
+                    />
                 </>
             )}
         </AnimateScreen>

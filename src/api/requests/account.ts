@@ -12,3 +12,16 @@ export const profile = async () => {
         throw err.response
     }
 }
+
+export const getPokeball = async () => {
+    try {
+        if (cookies.get('authorization')) {
+            const res = await Request.get('/user/pokeball')
+            return res.data
+        }
+
+        return undefined
+    } catch (err: any) {
+        throw err.response
+    }
+}

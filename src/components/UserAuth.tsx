@@ -34,6 +34,8 @@ function UserAuth({ isOpen, onClose }: UseDisclosureProps) {
                 pb='3rem'
                 w='500px'
                 pos='relative'
+                bg='white'
+                borderRadius='12px'
             >
                 <Icon
                     as={FaTimes}

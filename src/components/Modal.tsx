@@ -8,9 +8,10 @@ type ModalProps = {
     onClose?: () => void
     height?: 'full' | 'auto'
     closeOnOverlayClick?: boolean
+    darker?: boolean
 }
 
-function Modal({ id, children, isOpen, onClose, height = 'auto', closeOnOverlayClick = true }: ModalProps) {
+function Modal({ id, children, isOpen, onClose, height = 'auto', closeOnOverlayClick = true, darker }: ModalProps) {
     return (
         <>
             {height !== 'full' && (
@@ -24,13 +25,13 @@ function Modal({ id, children, isOpen, onClose, height = 'auto', closeOnOverlayC
                     right='0'
                     bottom='0'
                     w='body-width'
-                    backdropFilter='blur(3px)'
-                    onClick={(e: any) => !e.target.closest(`.${id}`) && closeOnOverlayClick && onClose!()}
+                    backdropFilter={darker ? 'blur(10px)' : 'blur(3px)'}
+                    onClick={(e: any) => !e.target.closest(`.${id}`) && closeOnOverlayClick && onClose && onClose()}
                     zIndex='modal'
                 >
                     <Container
                         h='100vh'
-                        bg='rgba(0, 0, 0, .5)'
+                        bg={darker ? 'rgba(0, 0, 0, .7)' : 'rgba(0, 0, 0, .5)'}
                     >
                         <Center
                             w='100%'
@@ -41,8 +42,6 @@ function Modal({ id, children, isOpen, onClose, height = 'auto', closeOnOverlayC
                                 className={id}
                                 w='max-content'
                                 maxW='100%'
-                                bg='white'
-                                borderRadius='12px'
                             >
                                 {children}
                             </Box>

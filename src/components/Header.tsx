@@ -18,12 +18,12 @@ type HeaderProps = {
 }
 
 function Header({ children, variants, initial, animate, exit }: HeaderProps) {
-    const { user, setUser } = useAuth()
+    const { user } = useAuth()
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     const handleLogout = () => {
         cookies.remove('authorization')
-        setUser(undefined)
+        window.location.reload()
     }
 
     return (

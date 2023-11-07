@@ -4,6 +4,6 @@ import Cookies from 'universal-cookie'
 export const cookies = new Cookies()
 
 export const Request = axios.create({
-    baseURL: 'https://pokemon-server-vert.vercel.app',
+    baseURL: 'http://localhost:8030',
     withCredentials: true,
 })

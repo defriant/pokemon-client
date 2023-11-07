@@ -16,9 +16,9 @@ const manifestForPlugIn: Partial<VitePWAOptions> = {
         'icon-512x512.png',
     ],
     manifest: {
-        name: 'Phonebook App',
-        short_name: 'Phonebook',
-        description: 'A Phonebook app created by Afif Defriant',
+        name: 'Pokemon',
+        short_name: 'Pokemon',
+        description: 'A Pokemon app created by Afif Defriant',
         icons: [
             {
                 src: '/icon-48x48.png',

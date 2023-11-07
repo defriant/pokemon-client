@@ -197,16 +197,18 @@ function PokemonDetail() {
                                             align='center'
                                             gap='.5rem'
                                         >
-                                            <Tooltip label='Obtained'>
-                                                <Box lineHeight='0'>
-                                                    <Icon
-                                                        as={MdCatchingPokemon}
-                                                        lineHeight='0'
-                                                        fontSize='20px'
-                                                        opacity='.5'
-                                                    />
-                                                </Box>
-                                            </Tooltip>
+                                            {user && data.isObtained && (
+                                                <Tooltip label='Obtained'>
+                                                    <Box lineHeight='0'>
+                                                        <Icon
+                                                            as={MdCatchingPokemon}
+                                                            lineHeight='0'
+                                                            fontSize='20px'
+                                                            opacity='.5'
+                                                        />
+                                                    </Box>
+                                                </Tooltip>
+                                            )}
 
                                             <Text
                                                 fontSize='lg'

@@ -28,11 +28,17 @@ function UserAuth({ isOpen, onClose }: UseDisclosureProps) {
             isOpen={isOpen}
             onClose={onClose}
             closeOnOverlayClick={false}
+            centered
         >
             <Box
                 p='1.5rem'
                 pb='3rem'
-                w='500px'
+                maxW='500px'
+                w={{
+                    base: '100%',
+                    sm: '400px',
+                    md: '500px',
+                }}
                 pos='relative'
                 bg='white'
                 borderRadius='12px'

@@ -9,9 +9,10 @@ type ModalProps = {
     height?: 'full' | 'auto'
     closeOnOverlayClick?: boolean
     darker?: boolean
+    centered?: boolean
 }
 
-function Modal({ id, children, isOpen, onClose, height = 'auto', closeOnOverlayClick = true, darker }: ModalProps) {
+function Modal({ id, children, isOpen, onClose, height = 'auto', closeOnOverlayClick = true, darker, centered }: ModalProps) {
     return (
         <>
             {height !== 'full' && (
@@ -36,7 +37,7 @@ function Modal({ id, children, isOpen, onClose, height = 'auto', closeOnOverlayC
                         <Center
                             w='100%'
                             h='100%'
-                            pb='25vh'
+                            pb={centered ? '0' : '25vh'}
                         >
                             <Box
                                 className={id}

@@ -82,21 +82,24 @@ function PokemonBall() {
                                 fontSize='xs'
                                 w='200px'
                             >
-                                Pokemon ball is used for capture a pokemon, it will recharge after every 1 minute until reached max amount
+                                Pokemon ball are used for catch a pokemon, it will recharge every 1 minute until reached max amount
                             </Text>
                         </Stack>
 
-                        {isCountdown && (
-                            <Stack
-                                align='center'
-                                spacing='0'
-                            >
-                                <Text fontSize='lg'>
-                                    {minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ? `0${seconds}` : seconds}
-                                </Text>
-                                <Text fontSize='xs'>Until recharge</Text>
-                            </Stack>
-                        )}
+                        <Stack
+                            align='center'
+                            spacing='0'
+                            h='45px'
+                        >
+                            {isCountdown && (
+                                <>
+                                    <Text fontSize='lg'>
+                                        {minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+                                    </Text>
+                                    <Text fontSize='xs'>Until recharge</Text>
+                                </>
+                            )}
+                        </Stack>
                     </Stack>
                 )}
             </MenuList>

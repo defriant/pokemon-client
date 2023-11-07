@@ -13,6 +13,7 @@ export const getPokemonList = async (offset: number) => {
         throw err.response
     }
 }
+
 export const getPokemonDetail = async (id: string | undefined) => {
     if (!id) return null
 

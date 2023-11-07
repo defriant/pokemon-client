@@ -1,19 +1,24 @@
-import { Box, Flex, Icon, Link, Text } from '@chakra-ui/react'
+import { Box, Flex, Grid, Icon, Link, Text } from '@chakra-ui/react'
 import { Variants, motion } from 'framer-motion'
 import { Link as ReactLink } from 'react-router-dom'
 import { PATH } from '../routes/path'
-import { ReactNode, useEffect } from 'react'
+import { ReactNode } from 'react'
 import { FaArrowLeft } from 'react-icons/fa'
 import Header from '../components/Header'
+import { useQuery } from 'react-query'
+import useAuth from '../hooks/useAuth'
+import { getMyPokemons } from '../api/requests/account'
+import PageLoader from '../components/PageLoader'
+import { TPokemonList } from './Pokemons'
+import CardPokemon from '../components/CardPokemon'
 
 type PokemonsProps = {
     children?: ReactNode
 }
 
 function MyPokemons({ children }: PokemonsProps) {
-    useEffect(() => {
-        window.scrollTo(0, 0)
-    }, [])
+    const { user } = useAuth()
+    const { data: pokemons, isLoading } = useQuery(`pokemons-${user?.id}`, getMyPokemons)
 
     const MyPokemonsMotion: Variants = {
         initial: {
@@ -70,8 +75,29 @@ function MyPokemons({ children }: PokemonsProps) {
                 exit='exit'
                 mt='header-height'
             >
-                <Text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, a.</Text>
-                <Box h='2000px'></Box>
+                {isLoading && <PageLoader />}
+                {!isLoading && pokemons && (
+                    <>
+                        <Grid
+                            templateColumns={{
+                                base: 'repeat(2, 1fr)',
+                                sm: 'repeat(4, 1fr)',
+                            }}
+                            gap={{
+                                base: '1rem',
+                                md: '1.5rem',
+                            }}
+                        >
+                            {pokemons?.map((pokemon: TPokemonList, i: number) => (
+                                <CardPokemon
+                                    key={i}
+                                    pokemon={pokemon}
+                                    myPokemon
+                                />
+                            ))}
+                        </Grid>
+                    </>
+                )}
             </Box>
 
             {children}

@@ -1,24 +1,6 @@
 import AnimateScreen from '../components/AnimateScreen'
 import AnimateScreenBody from '../components/AnimateScreenBody'
-import {
-    Alert,
-    AlertIcon,
-    Avatar,
-    Box,
-    Button,
-    Center,
-    Container,
-    Flex,
-    Grid,
-    HStack,
-    Icon,
-    Image,
-    Link,
-    Stack,
-    Tag,
-    Text,
-    Tooltip,
-} from '@chakra-ui/react'
+import { Alert, AlertIcon, Avatar, Box, Center, Flex, Grid, HStack, Icon, Image, Link, Stack, Tag, Text, Tooltip } from '@chakra-ui/react'
 import { Link as ReactLink, useParams } from 'react-router-dom'
 import { PATH } from '../routes/path'
 import { FaArrowLeft, FaLevelUpAlt } from 'react-icons/fa'
@@ -27,60 +9,22 @@ import { BsShield, BsShieldPlus, BsSuitHeart } from 'react-icons/bs'
 import { PiSneakerMove } from 'react-icons/pi'
 import { CiLineHeight } from 'react-icons/ci'
 import { LiaWeightHangingSolid } from 'react-icons/lia'
-import PokemonBall from '../components/PokemonBall'
-import { MdCatchingPokemon, MdOutlineCatchingPokemon } from 'react-icons/md'
-import { motion } from 'framer-motion'
-import { UseQueryResult, useMutation, useQuery } from 'react-query'
-import { getPokemonDetail } from '../api/requests/pokemon'
+import { MdCatchingPokemon } from 'react-icons/md'
+import { UseQueryResult, useQuery } from 'react-query'
 import PageLoader from '../components/PageLoader'
-import useAuth from '../hooks/useAuth'
-import usePokeball from '../hooks/usePokeball'
-import { useState } from 'react'
-import CaptureScreen from '../components/CaptureScreen'
-import { catchPokemon } from '../api/requests/account'
+import { getMyPokemonDetail } from '../api/requests/account'
 
-function PokemonDetail() {
-    const { user } = useAuth()
+function MyPokemonDetail() {
     const { pokemon_id } = useParams()
     const { data, isLoading, isSuccess, isError, error, refetch }: UseQueryResult<any, any> = useQuery(
         `pokemon-${pokemon_id}`,
-        () => getPokemonDetail(pokemon_id),
+        () => getMyPokemonDetail(pokemon_id),
         {
             enabled: false,
             cacheTime: Infinity,
             staleTime: Infinity,
         },
     )
-    const { current, refetch: fetchPokeball } = usePokeball()
-    const [isOpenCaptureScreen, setIsOpenCaptureScreen] = useState<boolean>(false)
-    const [isCapturing, setIsCapturing] = useState<boolean>(false)
-    const [isCaptureSuccess, setIsCaptureSuccess] = useState<boolean>(false)
-    const [isCaptureFailed, setIsCaptureFailed] = useState<boolean>(false)
-
-    const sendCatchPokemon = useMutation(`catch-pokemon-${pokemon_id}`, catchPokemon, {
-        onSuccess: (res: any) => {
-            if (res?.isSuccess) {
-                setIsCapturing(false)
-                setIsCaptureFailed(false)
-                setIsCaptureSuccess(true)
-                return
-            }
-
-            setIsCapturing(false)
-            setIsCaptureSuccess(false)
-            setIsCaptureFailed(true)
-        },
-    })
-
-    const handleCapture = () => {
-        if (data?.id) {
-            setIsCapturing(true)
-            setIsOpenCaptureScreen(true)
-            setTimeout(() => {
-                sendCatchPokemon.mutate(data.id)
-            }, 5000)
-        }
-    }
 
     return (
         <AnimateScreen
@@ -101,7 +45,7 @@ function PokemonDetail() {
                     >
                         <Link
                             as={ReactLink}
-                            to={PATH.pokemons}
+                            to={PATH.myPokemons}
                             pos='absolute'
                             top='1.5rem'
                             left='0'
@@ -131,7 +75,7 @@ function PokemonDetail() {
             {!isLoading && isSuccess && (
                 <>
                     <Grid
-                        templateRows={user ? (data.isObtained ? '1fr' : '1fr 100px') : '1fr'}
+                        templateRows='1fr'
                         h='100vh'
                         overflow='hidden'
                         pos='absolute'
@@ -157,7 +101,7 @@ function PokemonDetail() {
                             >
                                 <Link
                                     as={ReactLink}
-                                    to={PATH.pokemons}
+                                    to={PATH.myPokemons}
                                     pos='absolute'
                                     top='1.5rem'
                                     left='1.5rem'
@@ -171,15 +115,6 @@ function PokemonDetail() {
                                         fontSize='22px'
                                     />
                                 </Link>
-                                {user && (
-                                    <Box
-                                        pos='absolute'
-                                        top='1.5rem'
-                                        right='1.5rem'
-                                    >
-                                        <PokemonBall />
-                                    </Box>
-                                )}
 
                                 <Image
                                     pos='relative'
@@ -424,135 +359,22 @@ function PokemonDetail() {
                                         </Flex>
                                     </Stack>
 
-                                    {!user && (
-                                        <Alert
-                                            status='info'
-                                            fontSize='sm'
-                                            borderRadius='6px'
-                                        >
-                                            <AlertIcon fontSize='12px' />
-                                            <Text>Login to catch {data?.name.replaceAll('-', ' ')}</Text>
-                                        </Alert>
-                                    )}
-
-                                    {data.isObtained && (
-                                        <Alert
-                                            status='success'
-                                            fontSize='sm'
-                                            borderRadius='6px'
-                                        >
-                                            <AlertIcon fontSize='12px' />
-                                            <Text>You have captured {data?.name?.replaceAll('-', ' ')}</Text>
-                                        </Alert>
-                                    )}
+                                    <Alert
+                                        status='success'
+                                        fontSize='sm'
+                                        borderRadius='6px'
+                                    >
+                                        <AlertIcon fontSize='12px' />
+                                        <Text>You have captured {data?.name?.replaceAll('-', ' ')}</Text>
+                                    </Alert>
                                 </Stack>
                             </AnimateScreenBody>
                         </Box>
-
-                        {user && <Box />}
                     </Grid>
-
-                    {user && !data.isObtained && (
-                        <>
-                            <Container
-                                as={motion.div}
-                                initial={{
-                                    height: '0px',
-                                    opacity: 0,
-                                }}
-                                animate={{
-                                    height: '100px',
-                                    opacity: 1,
-                                    transition: {
-                                        delay: 0.3,
-                                    },
-                                }}
-                                exit={{
-                                    height: '0px',
-                                    opacity: 0,
-                                }}
-                                h='100px'
-                                pos='fixed'
-                                bottom='0'
-                                left='0'
-                                right='0'
-                                overflowX='clip'
-                                overflowY='visible'
-                            >
-                                <Stack
-                                    boxShadow='container'
-                                    pos='absolute'
-                                    top='0'
-                                    left='0'
-                                    right='0'
-                                    bottom='0'
-                                    justify='center'
-                                    h='100%'
-                                    px='1rem'
-                                >
-                                    <Text
-                                        align='center'
-                                        fontSize={{
-                                            base: 'xs',
-                                            md: 'sm',
-                                        }}
-                                        fontWeight='medium'
-                                    >
-                                        Capture rate : {data?.capture_rate}%
-                                    </Text>
-                                    <Button
-                                        colorScheme='blue'
-                                        fontWeight='medium'
-                                        rounded='full'
-                                        w='100%'
-                                        size={{
-                                            base: 'sm',
-                                            md: 'md',
-                                        }}
-                                        leftIcon={
-                                            <Icon
-                                                as={MdOutlineCatchingPokemon}
-                                                fontSize='20px'
-                                            />
-                                        }
-                                        isDisabled={current === 0}
-                                        onClick={handleCapture}
-                                    >
-                                        <Flex gap='.4rem'>
-                                            <Text>Catch</Text>
-                                            <Text _firstLetter={{ textTransform: 'capitalize' }}>{data?.name.replaceAll('-', ' ')}</Text>
-                                        </Flex>
-                                    </Button>
-                                </Stack>
-                            </Container>
-                            <CaptureScreen
-                                pokemon={data}
-                                isOpen={isOpenCaptureScreen}
-                                isCapturing={isCapturing}
-                                isSuccess={isCaptureSuccess}
-                                isFailed={isCaptureFailed}
-                                onSuccess={() => {
-                                    setIsOpenCaptureScreen(false)
-                                    setIsCapturing(false)
-                                    setIsCaptureSuccess(false)
-                                    setIsCaptureFailed(false)
-                                    refetch()
-                                    fetchPokeball()
-                                }}
-                                onFailed={() => {
-                                    setIsOpenCaptureScreen(false)
-                                    setIsCapturing(false)
-                                    setIsCaptureSuccess(false)
-                                    setIsCaptureFailed(false)
-                                    fetchPokeball()
-                                }}
-                            />
-                        </>
-                    )}
                 </>
             )}
         </AnimateScreen>
     )
 }
 
-export default PokemonDetail
+export default MyPokemonDetail

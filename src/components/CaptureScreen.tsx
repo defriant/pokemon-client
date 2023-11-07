@@ -2,31 +2,19 @@ import { FaCheck, FaTimes } from 'react-icons/fa'
 import { hourglass_gif } from '../assets'
 import Modal from './Modal'
 import { Box, Button, Flex, Icon, Image, Stack, Text } from '@chakra-ui/react'
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 type CaptureScreenProps = {
     pokemon: any
     isOpen: boolean
-    setIsOpen: Dispatch<SetStateAction<boolean>>
     isCapturing: boolean
-    setIsCapturing: Dispatch<SetStateAction<boolean>>
     isSuccess: boolean
-    setIsSuccess: Dispatch<SetStateAction<boolean>>
     isFailed: boolean
-    setIsFailed: Dispatch<SetStateAction<boolean>>
+    onSuccess?: () => void
+    onFailed?: () => void
 }
 
-function CaptureScreen({
-    pokemon,
-    isOpen,
-    setIsOpen,
-    isCapturing,
-    setIsCapturing,
-    isSuccess,
-    setIsSuccess,
-    isFailed,
-    setIsFailed,
-}: CaptureScreenProps) {
+function CaptureScreen({ pokemon, isOpen, isCapturing, isSuccess, isFailed, onSuccess, onFailed }: CaptureScreenProps) {
     const [zoom, setZoom] = useState(false)
 
     useEffect(() => {
@@ -80,7 +68,7 @@ function CaptureScreen({
                             color='white'
                             flexWrap='wrap'
                         >
-                            <Text>Capturing</Text>
+                            <Text>Catching</Text>
                             <Text
                                 _firstLetter={{
                                     textTransform: 'capitalize',
@@ -138,6 +126,7 @@ function CaptureScreen({
                             size='sm'
                             rounded='full'
                             colorScheme='blue'
+                            onClick={() => onSuccess && onSuccess()}
                         >
                             Continue
                         </Button>
@@ -189,12 +178,13 @@ function CaptureScreen({
                         <Button
                             size='sm'
                             rounded='full'
-                            onClick={() => {
-                                setIsOpen(false)
-                                setIsCapturing(false)
-                                setIsSuccess(false)
-                                setIsFailed(false)
-                            }}
+                            // onClick={() => {
+                            //     setIsOpen(false)
+                            //     setIsCapturing(false)
+                            //     setIsSuccess(false)
+                            //     setIsFailed(false)
+                            // }}
+                            onClick={() => onFailed && onFailed()}
                         >
                             Close
                         </Button>

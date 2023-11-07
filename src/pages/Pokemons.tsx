@@ -15,6 +15,7 @@ export type TPokemonList = {
     name: string
     image: string
     url: string
+    isObtained: boolean
 }
 
 type PokemonsProps = {

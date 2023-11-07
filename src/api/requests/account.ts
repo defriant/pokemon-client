@@ -25,3 +25,32 @@ export const getPokeball = async () => {
         throw err.response
     }
 }
+
+export const catchPokemon = async (pokemon_id: number) => {
+    try {
+        const res = await Request.post('/user/pokemon/catch', { pokemon_id })
+        return res.data
+    } catch (err: any) {
+        throw err.response
+    }
+}
+
+export const getMyPokemons = async () => {
+    try {
+        const res = await Request.get('/user/my-pokemons')
+        return res.data
+    } catch (err: any) {
+        throw err.response
+    }
+}
+
+export const getMyPokemonDetail = async (id: string | undefined) => {
+    if (!id) return null
+
+    try {
+        const res = await Request.get(`/user/my-pokemons/${id}`)
+        return res.data
+    } catch (err: any) {
+        throw err.response
+    }
+}

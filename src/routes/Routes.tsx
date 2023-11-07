@@ -9,6 +9,7 @@ const PrivateRoute = lazy(() => import('./PrivateRoute'))
 const Pokemons = lazy(() => import('../pages/Pokemons'))
 const PokemonDetail = lazy(() => import('../pages/PokemonDetail'))
 const MyPokemons = lazy(() => import('../pages/MyPokemons'))
+const MyPokemonDetail = lazy(() => import('../pages/MyPokemonDetail'))
 
 function Routes() {
     const location = useLocation()
@@ -43,8 +44,22 @@ function Routes() {
 
                         <Route element={<PrivateRoute />}>
                             <Route
-                                path={PATH.myPokemons}
-                                element={<MyPokemons />}
+                                path={`/${PATH.myPokemons}/*`}
+                                element={
+                                    <MyPokemons>
+                                        <AnimatePresence mode='wait'>
+                                            <ReactRoutes
+                                                location={location}
+                                                key={locationArr[2]}
+                                            >
+                                                <Route
+                                                    path={`${PATH.myPokemonDetail.replace(PATH.myPokemons, '')}`}
+                                                    element={<MyPokemonDetail />}
+                                                />
+                                            </ReactRoutes>
+                                        </AnimatePresence>
+                                    </MyPokemons>
+                                }
                             />
                         </Route>
 

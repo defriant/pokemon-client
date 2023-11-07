@@ -517,7 +517,7 @@ function PokemonDetail() {
                                                 fontSize='20px'
                                             />
                                         }
-                                        isDisabled={current === 0}
+                                        isDisabled={current === 0 || data.isObtained}
                                         onClick={handleCapture}
                                     >
                                         <Flex gap='.4rem'>

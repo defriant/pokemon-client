@@ -29,6 +29,7 @@ function Login({ setPage, onClose }: { setPage: Dispatch<SetStateAction<'login' 
                 maxAge: session.maxAge,
             })
             setUser(user)
+            window.location.reload()
         },
         onError: (err: any) => {
             toast.closeAll()

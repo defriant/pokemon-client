@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react-swc'
 import { VitePWA, VitePWAOptions } from 'vite-plugin-pwa'
 
 const manifestForPlugIn: Partial<VitePWAOptions> = {
-    registerType: 'prompt',
+    registerType: 'autoUpdate',
     includeAssets: [
         'icon-48x48.png',
         'icon-72x72.png',

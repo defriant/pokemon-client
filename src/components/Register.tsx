@@ -4,6 +4,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { useMutation } from 'react-query'
 import { register } from '../api/requests/auth'
 import useAuth, { TUser } from '../hooks/useAuth'
+import { cookies } from '../api/config'
 
 function Register({ setPage, onClose }: { setPage: Dispatch<SetStateAction<'login' | 'register'>> } & UseDisclosureProps) {
     const [name, setName] = useState<string>('')
@@ -32,8 +33,11 @@ function Register({ setPage, onClose }: { setPage: Dispatch<SetStateAction<'logi
     }, [name, email, password, confirmPassword])
 
     const sendRegister = useMutation('auth-register', register, {
-        onSuccess: ({ user, message }: { user: TUser; message: string }) => {
+        onSuccess: ({ user, message, session }: { user: TUser; message: string; session: any }) => {
             onClose!()
+            cookies.set('authorization', session.token, {
+                maxAge: session.maxAge,
+            })
             setUser(user)
             toast.closeAll()
             toast({

@@ -4,6 +4,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { useMutation } from 'react-query'
 import { login } from '../api/requests/auth'
 import useAuth, { TUser } from '../hooks/useAuth'
+import { cookies } from '../api/config'
 
 function Login({ setPage, onClose }: { setPage: Dispatch<SetStateAction<'login' | 'register'>> } & UseDisclosureProps) {
     const [email, setEmail] = useState<string>('')
@@ -22,9 +23,12 @@ function Login({ setPage, onClose }: { setPage: Dispatch<SetStateAction<'login' 
     }, [email, password])
 
     const sendLogin = useMutation('auth-login', login, {
-        onSuccess: (res: TUser) => {
+        onSuccess: ({ user, session }: { user: TUser; session: any }) => {
             onClose!()
-            setUser(res)
+            cookies.set('authorization', session.token, {
+                maxAge: session.maxAge,
+            })
+            setUser(user)
         },
         onError: (err: any) => {
             toast.closeAll()
